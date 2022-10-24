@@ -1,0 +1,57 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+}
+
+group = 'me.practice'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2021.0.4")
+}
+
+dependencies {
+    // AWS Lambda 에 배포하기 위한 의존성
+    implementation group: 'com.amazonaws', name: 'aws-lambda-java-core', version: '1.2.1'
+    // AWS Lambda 이벤트를 다루기 위한 의존성
+    implementation group: 'com.amazonaws', name: 'aws-lambda-java-events', version: '3.9.0'
+    // AWS Lambda Logging
+    runtimeOnly 'com.amazonaws:aws-lambda-java-log4j2:1.5.0'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    // for local test
+    implementation 'org.springframework.cloud:spring-cloud-starter-function-web'
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-function-adapter-aws', version: '3.2.7'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+task buildZip(type: Zip) {
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.runtimeClasspath
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
