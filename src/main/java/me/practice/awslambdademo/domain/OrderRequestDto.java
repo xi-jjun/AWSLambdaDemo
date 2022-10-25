@@ -12,13 +12,5 @@ import lombok.NoArgsConstructor;
 public class OrderRequestDto {
 	private String name;
 	private int price;
-	private int quantity;
-
-	public Order toEntity() {
-		return Order.builder()
-				.name(name)
-				.price(price)
-				.quantity(quantity)
-				.build();
-	}
+	private int count;
 }

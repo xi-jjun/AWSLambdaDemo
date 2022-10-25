@@ -10,27 +10,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
-@Table(name = "PRACTICE_ORDER")
 @Entity
-public class Order {
+public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne
-	@JoinColumn(name = "item_id")
-	private Item item;
+	private String name;
 
-	private int count;
+	private int stock;
 
-//	public boolean
+	private int price;
+
+	public boolean outOfStock() {
+		return stock <= 0;
+	}
 }

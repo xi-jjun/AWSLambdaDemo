@@ -8,11 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderResponseDto {
-	private int id;
+	private Long id;
 	private String name;
+	private int count;
 
 	public OrderResponseDto(Order order) {
 		this.id = order.getId();
-		this.name = order.getName();
+		this.name = order.getItem().getName();
+		this.count = order.getCount();
 	}
 }
