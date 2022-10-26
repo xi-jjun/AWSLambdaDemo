@@ -1,4 +1,4 @@
-package me.practice.awslambdademo;
+package me.practice.awslambdademo.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
