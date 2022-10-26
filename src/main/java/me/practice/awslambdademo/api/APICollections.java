@@ -39,7 +39,7 @@ public class APICollections {
 	}
 
 	@Bean
-	public Supplier<ResponseDto<?>> getTotalOrderList() {
+	public Supplier<ResponseDto<?>> getAllOrderList() {
 		return orderService::getTotalOrderList;
 	}
 }
